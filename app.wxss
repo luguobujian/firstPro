@@ -1,0 +1,32 @@
+/**app.wxss**/
+
+.container {
+  width: 100%;
+  overflow: hidden;
+  background-color: #f8f8f8;
+  /* height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box; */
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.clearfix::after, .clearfix::before {
+  display: block;
+  content: '';
+  clear: both;
+}
+
+.clearfix {
+  zoom: 1;
+}

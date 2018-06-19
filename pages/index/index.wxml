@@ -1,0 +1,104 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view> -->
+  <view class='clearfix'>
+    <view class='address'>北京</view>
+    <view class='input-view'>
+      <image class='search-icon' src="../../images/icon/search.png"></image>
+      <view>搜索拥军爱心企业</view>
+    </view>
+  </view>
+
+  <!-- 轮播图 -->
+  <view class='slider-view'>
+    <swiper class='slider' indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" circular="true" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+
+  <!-- 头条 -->
+  <view class='top-view'>
+    <view class='top-logo-view'>
+      <image class='top-logo' src="../../images/icon/top.png"></image>
+    </view>
+    <view class='top-slider-view'>
+      <swiper class='top-slider' autoplay="{{autoplay}}" vertical="true" circular="true" next-margin="32rpx" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{imgUrls}}">
+          <swiper-item>
+            <view class='clearfix'>
+              <view class='top-samll-tag'>热点</view>
+              <view class='top-small-tit'>热点热点热点热点热点热点热点热点热点热点热点热点热点热点热点热点</view>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+  </view>
+  <!-- 名气服务 -->
+  <view>
+    <view class='tit'>
+      <view class='perpendicular'>
+      </view>
+      名企拥军服务
+    </view>
+    <view>
+      <view wx:for="{{[1,2]}}">
+        <view class='merchant-item clearfix'>
+          <view class='fl merchant-logo'>
+            <image src='../../images/icon/top.png'></image>
+          </view>
+          <view class='fr merchant-info'>
+            <view class='merchant-info-tit'>苏宁电器</view>
+            <view class='merchant-info-info'>苏宁电器苏宁电器苏宁宁电器电器苏宁电器苏宁电器电器苏宁电器苏宁电器宁电器电器苏宁电器苏宁宁电器电器苏宁电器苏宁</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view>
+    <view class='tit'>
+      <view class='perpendicular'>
+      </view>
+      附近的拥军爱心企业
+      <view class='fr go-item'>
+        切换列表
+      </view>
+    </view>
+    <view class='map-view'>
+      <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 300px;"></map>
+    </view>
+  </view>
+
+
+  <view class='item-one clearfix'>
+    <view class='fl item-one-logo'>
+      <image src='../../images/icon/top.png'></image>
+    </view>
+    <view class='fl item-one-info'>
+      <view class='item-one-for'>770km</view>
+      <view class='item-one-tit'>1.体昂那颗</view>
+      <view class='item-one-add'>海淀区北土城西路（牡丹园环岛冬）</view>
+      <view class='item-one-call'>联系方式：0232-88888888</view>
+      <view class='item-one-sale'>
+        <view class='fl'>惠军卡专享</view>
+        满1000减200限时开启，进店就送
+      </view>
+      <view class='item-one-btn'>领取惠军卡</view>
+    </view>
+  </view>
+  <view class='down'>下</view>
+</view>

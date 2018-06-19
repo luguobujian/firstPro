@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/headline/headline",
+    "pages/me/me",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ca0000",
+    "navigationBarTitleText": "惠军卡 拥军就在您身边！",
+    "navigationBarTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#B4B4B4",
+    "selectedColor": "#A42117",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "拥军爱心企业",
+        "iconPath": "./images/icon/tabbar01.png",
+        "selectedIconPath": "./images/icon/tabbar01-act.png"
+      },
+      {
+        "pagePath": "pages/headline/headline",
+        "text": "惠军头条",
+        "iconPath": "./images/icon/tabbar02.png",
+        "selectedIconPath": "./images/icon/tabbar02-act.png"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的",
+        "iconPath": "./images/icon/tabbar03.png",
+        "selectedIconPath": "./images/icon/tabbar03-act.png"
+      }
+    ]
+  }
+}
