@@ -1,1 +1,21 @@
 /* pages/headline/headline.wxss */
+
+.scroll-view_H {
+  height: 80rpx;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 80rpx;
+  background: #f7f7f7;
+  font-size: 16px;
+  white-space: nowrap;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.scroll-view_H view {
+  margin: 0 36rpx;
+  display: inline-block;
+}

@@ -23,6 +23,7 @@ Page({
 
     latitude: "",
     longitude: "",
+    currentCity: "",
 
 
     // markers: [{
@@ -57,23 +58,10 @@ Page({
     //   clickable: true
     // }]
   },
-  regionchange(e) {
-    console.log(e.type)
-  },
-  markertap(e) {
-    console.log(e.markerId)
-  },
-  controltap(e) {
-    console.log(e.controlId)
-  }
-  ,
-  //事件处理函数
-  // bindViewTap: function() {
-  //   wx.navigateTo({
-  //     url: '../logs/logs'
-  //   })
-  // },
-  onLoad: function () {
+
+
+
+  onLoad: function() {
     // if (app.globalData.userInfo) {
     //   this.setData({
     //     userInfo: app.globalData.userInfo,
@@ -102,17 +90,12 @@ Page({
     // }
     wx.getSetting({
       success: (res) => {
-        console.log(res);
-
-        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {//非初始化进入该页面,且未授权
+        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) { //非初始化进入该页面,且未授权
           wx.showModal({
             title: '是否授权当前位置',
             content: '需要获取您的地理位置，请确认授权，否则无法获取您所需数据',
-            success: function (res) {
+            success: function(res) {
               if (res.cancel) {
-                that.setData({
-                  isshowCIty: false
-                })
                 wx.showToast({
                   title: '授权失败',
                   icon: 'success',
@@ -120,7 +103,7 @@ Page({
                 })
               } else if (res.confirm) {
                 wx.openSetting({
-                  success: function (dataAu) {
+                  success: function(dataAu) {
                     if (dataAu.authSetting["scope.userLocation"] == true) {
                       wx.showToast({
                         title: '授权成功',
@@ -141,16 +124,16 @@ Page({
               }
             }
           })
-        } else if (res.authSetting['scope.userLocation'] == undefined) {//初始化进入
+        } else if (res.authSetting['scope.userLocation'] == undefined) { //初始化进入
           this.getLocation(this);
         } else { //授权后默认加载
           this.getLocation(this);
         }
-
       }
     })
-
   },
+
+
   // getUserInfo: function(e) {
   //   console.log(e)
   //   app.globalData.userInfo = e.detail.userInfo
@@ -164,32 +147,78 @@ Page({
       type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标  
       success: (res) => {
         console.log(res);
+        that.loadCity(res.latitude, res.longitude)
         that.setData({
           latitude: res.latitude,
           longitude: res.longitude,
-          // markers: [{
-          //   id: "1",
-          //   latitude: res.latitude,
-          //   longitude: res.longitude,
-          //   width: 50,
-          //   height: 50,
-          //   // iconPath: "../images/my.png",
-          //   title: "我的当前位置"
-          // }],
-          // circles: [{
-          //   latitude: res.latitude,
-          //   longitude: res.longitude,
-          //   color: '#FF0000DD',
-          //   fillColor: '#7cb5ec88',
-          //   radius: 3000,
-          //   strokeWidth: 1
-          // }]
+          markers: [{
+            id: "1",
+            latitude: 33.64000,
+            longitude: 116.97700,
+            width: 40,
+            height: 40,
+            iconPath: "../../images/icon/sn.png",
+            // title: "位置"
+          }]
         })
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log(res);
       }
     })
-  }
+  },
+  loadCity: function(latitude, longitude) {
+    let that = this
+    wx.request({
+      url: 'https://api.map.baidu.com/geocoder/v2/?ak=LmUqsfoEtzX3YH0Zuv5v7B664w0jytO9&location=' + latitude + ',' + longitude + '&output=json',
+      data: {},
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: function(res) {
+        // success    
+        console.log(res);
+        let city = res.data.result.addressComponent.city;
+        that.setData({
+          currentCity: city
+        });
+      },
+      fail: function() {
+        this.setData({
+          currentCity: "获取定位失败"
+        });
+      },
 
+    })
+  },
+  //事件处理函数
+  markertap(e) {
+    console.log(e.markerId)
+  },
+  openSearchPage: () => {
+    wx.navigateTo({
+      url: '../search/search'
+    })
+  },
+  goHeadline: () => {
+    wx.switchTab({
+      url: '../headline/headline'
+    })
+  },
+  openShopItemsPage: () => {
+    wx.navigateTo({
+      url: '../shopitem/shopitem'
+    })
+  },
+  openMap: function() {
+
+    wx.openLocation({
+      latitude: 33.64000,
+      longitude: 116.97700,
+      scale: 28,
+      name: '测试',
+      address: 'cecece'
+    })
+
+  }
 })

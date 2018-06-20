@@ -25,8 +25,12 @@
   float: left;
   width: 132rpx;
   height: 90rpx;
+  font-size: 28rpx;
   line-height: 90rpx;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .input-view {
@@ -198,7 +202,7 @@
 .item-one-logo image {
   width: 146rpx;
   height: 140rpx;
-  margin: 56rpx 30rpx 0 30rpx;
+  margin: 74rpx 30rpx 0 30rpx;
   border: 1rpx solid #e0e0e0;
   border-radius: 6rpx;
 }
@@ -212,7 +216,14 @@
   color: #686868;
   font-size: 22rpx;
   text-align: right;
-  margin-top: 26rpx;
+  margin-top: 30rpx;
+  position: relative;
+}
+
+.item-one-for image {
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: -2rpx;
 }
 
 .item-one-tit {
@@ -259,4 +270,10 @@
   text-align: center;
   background: #fff;
   margin-bottom: 20rpx;
+}
+
+.down image {
+  width: 44rpx;
+  height: 44rpx;
+  margin-top: 20rpx;
 }

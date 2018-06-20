@@ -1,0 +1,29 @@
+/* pages/search/search.wxss */
+
+.top-view {
+  background-color: #fff;
+}
+
+.input-view {
+  float: left;
+  height: 90rpx;
+  font-size: 26rpx;
+  line-height: 90rpx;
+}
+
+.input-view > input {
+  color: #b5b5b5;
+  width: 590rpx;
+  height: 58rpx;
+  line-height: 58rpx;
+  margin: 18rpx 0;
+  background-color: #f2f2f2;
+  border-radius: 8rpx;
+}
+
+.search-btn {
+  float: left;
+  height: 90rpx;
+  font-size: 26rpx;
+  line-height: 90rpx;
+}

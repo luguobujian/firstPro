@@ -1,0 +1,12 @@
+<!--pages/search/search.wxml-->
+<!-- <text>pages/search/search.wxml</text> -->
+<view class='container'>
+  <view class='top-view clearfix'>
+    <view class='input-view clearfix'>
+      <input class='fl' placeholder="搜索拥军爱心企业"></input>
+      <view class='fl'>x</view>
+    </view>
+    <view class='search-btn'>搜索</view>
+  </view>
+
+</view>

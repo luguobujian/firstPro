@@ -11,8 +11,8 @@
     <text class="user-motto">{{motto}}</text>
   </view> -->
   <view class='clearfix'>
-    <view class='address'>北京</view>
-    <view class='input-view'>
+    <view class='address'>{{ currentCity }}</view>
+    <view class='input-view' bindtap='openSearchPage'>
       <image class='search-icon' src="../../images/icon/search.png"></image>
       <view>搜索拥军爱心企业</view>
     </view>
@@ -35,10 +35,10 @@
       <image class='top-logo' src="../../images/icon/top.png"></image>
     </view>
     <view class='top-slider-view'>
-      <swiper class='top-slider' autoplay="{{autoplay}}" vertical="true" circular="true" next-margin="32rpx" interval="{{interval}}" duration="{{duration}}">
+      <swiper class='top-slider' autoplay="{{autoplay}}" vertical="true" circular="true" next-margin="36rpx" interval="{{interval}}" duration="{{duration}}">
         <block wx:for="{{imgUrls}}">
           <swiper-item>
-            <view class='clearfix'>
+            <view class='clearfix'  bindtap='goHeadline'>
               <view class='top-samll-tag'>热点</view>
               <view class='top-small-tit'>热点热点热点热点热点热点热点热点热点热点热点热点热点热点热点热点</view>
             </view>
@@ -74,7 +74,7 @@
       <view class='perpendicular'>
       </view>
       附近的拥军爱心企业
-      <view class='fr go-item'>
+      <view class='fr go-item' bindtap='openShopItemsPage'>
         切换列表
       </view>
     </view>
@@ -89,7 +89,11 @@
       <image src='../../images/icon/top.png'></image>
     </view>
     <view class='fl item-one-info'>
-      <view class='item-one-for'>770km</view>
+      <view class='clearfix item-one-for' bindtap='openMap'>
+        <view class='fr'>7770km</view>
+        <image class='fr' src='../../images/icon/go.png'></image>
+
+      </view>
       <view class='item-one-tit'>1.体昂那颗</view>
       <view class='item-one-add'>海淀区北土城西路（牡丹园环岛冬）</view>
       <view class='item-one-call'>联系方式：0232-88888888</view>
@@ -100,5 +104,7 @@
       <view class='item-one-btn'>领取惠军卡</view>
     </view>
   </view>
-  <view class='down'>下</view>
+  <view class='down'>
+    <image src='../../images/icon/arrow.png'></image>
+  </view>
 </view>

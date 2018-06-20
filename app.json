@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/shopitem/shopitem",
+    "pages/search/search",
     "pages/headline/headline",
     "pages/me/me",
     "pages/logs/logs"
