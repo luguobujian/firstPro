@@ -1,2 +1,35 @@
 <!--pages/me/me.wxml-->
-<text>pages/me/me.wxml</text>
+<!-- <text>pages/me/me.wxml</text> -->
+<view class='container'>
+  <view class='main-view'>
+    <image src='../../images/bg.png'></image>
+    <view class='logo-view'>
+      <image src='../../images/logo.png'></image>
+    </view>
+    <view class='qr-code-view'>
+      <image></image>
+    </view>
+    <view class='arrow-view'>
+      <image src='../../images/arrow.png'></image>
+    </view>
+    <view class='name-view'>
+      <view>汪候诸葛</view>
+    </view>
+    <view class='avatar-view'>
+      <image src=''></image>
+    </view>
+    <view class='clearfix id-view'>
+      <view class='fl'>8888</view>
+      <view class='fl'>0000</view>
+      <view class='fl'>8888</view>
+      <view class='fl'>9999</view>
+    </view>
+    <view class='clearfix small-tit'>
+      <view class='fl'>惠军工程</view>
+      <view class='fl ver'></view>
+      <view class='fl'>尊崇军人</view>
+      <view class='fl'>优待军属</view>
+    </view>
+  </view>
+
+</view>

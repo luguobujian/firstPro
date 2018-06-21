@@ -53,8 +53,8 @@
 
 .item-one-sale view {
   font-size: 16rpx;
-  line-height: 18rpx;
-  padding: 4rpx;
+  line-height: 16rpx;
+  padding: 5rpx 4rpx 3rpx;
   margin-right: 16rpx;
   border: 1rpx solid #ff8127;
   border-radius: 6rpx;
