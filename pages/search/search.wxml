@@ -3,8 +3,8 @@
 <view class='container'>
   <view class='top-view clearfix'>
     <view class='input-view clearfix'>
-      <input class='fl' placeholder="搜索拥军爱心企业"></input>
-      <view class='fl'>x</view>
+      <input class='fl' value='{{ inputValue }}' placeholder="搜索拥军爱心企业" bindinput="bindKeyInput" confirm-type="search"></input>
+      <view wx:if="{{ inputValue }}" class='fl cross' bindtap='clearValue'>×</view>
     </view>
     <view class='search-btn'>搜索</view>
   </view>

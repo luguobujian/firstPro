@@ -1,0 +1,23 @@
+<!--pages/headlineOne/headlineOne.wxml-->
+<!-- <text>pages/headlineOne/headlineOne.wxml</text> -->
+<view class='container'>
+  <view>
+    <block wx:for="{{[1,2,3,4,5,6]}}" wx:key="*this">
+      <view class="item-hot clearfix">
+        <view class='fl item-con'>
+          <view class="item-tit">少年队员进入老年社区送温…</view>
+          <view class="item-some-info">摘要：近日，某学校组织少年队员进入老年社区做文艺汇…</view>
+          <view class='item-btm clearfix'>
+            <view class='fl item-tag'>热点</view>
+            <view class='fl item-for'>来源</view>
+            <view class='fl item-date'>60/07</view>
+            <view class='fl item-time'>11:11</view>
+          </view>
+        </view>
+        <view class='fl image-view'>
+          <image></image>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

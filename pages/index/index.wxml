@@ -38,7 +38,7 @@
       <swiper class='top-slider' autoplay="{{autoplay}}" vertical="true" circular="true" next-margin="36rpx" interval="{{interval}}" duration="{{duration}}">
         <block wx:for="{{imgUrls}}">
           <swiper-item>
-            <view class='clearfix'  bindtap='goHeadline'>
+            <view class='clearfix' bindtap='goHeadline'>
               <view class='top-samll-tag'>热点</view>
               <view class='top-small-tit'>热点热点热点热点热点热点热点热点热点热点热点热点热点热点热点热点</view>
             </view>
@@ -79,32 +79,32 @@
       </view>
     </view>
     <view class='map-view'>
-      <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 300px;"></map>
+      <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16" markers="{{markers}}" bindmarkertap="markertap" show-location style="width: 100%; height: 300px;"></map>
     </view>
   </view>
 
 
-  <view class='item-one clearfix'>
+  <view wx:if="{{ oneIsShow }}" class='item-one clearfix'>
     <view class='fl item-one-logo'>
-      <image src='../../images/icon/top.png'></image>
+      <image src='{{ oneLogo }}'></image>
     </view>
     <view class='fl item-one-info'>
       <view class='clearfix item-one-for' bindtap='openMap'>
-        <view class='fr'>7770km</view>
+        <view class='fr'>{{ onejuli }}m</view>
         <image class='fr' src='../../images/icon/go.png'></image>
 
       </view>
-      <view class='item-one-tit'>1.体昂那颗</view>
-      <view class='item-one-add'>海淀区北土城西路（牡丹园环岛冬）</view>
-      <view class='item-one-call'>联系方式：0232-88888888</view>
+      <view class='item-one-tit'>{{ oneId }}.{{ oneName }}</view>
+      <view class='item-one-add'>{{ oneAddress }}</view>
+      <view class='item-one-call'>联系方式：{{ oneTel }}</view>
       <view class='item-one-sale'>
         <view class='fl'>惠军卡专享</view>
         满1000减200限时开启，进店就送
       </view>
-      <view class='item-one-btn'>领取惠军卡</view>
+      <view class='item-one-btn' bindtap='openGetApp'>领取惠军卡</view>
     </view>
   </view>
-  <view class='down'>
+  <view  wx:if="{{ oneIsShow }}" class='down' bindtap='setHideOne'>
     <image src='../../images/icon/arrow.png'></image>
   </view>
 </view>

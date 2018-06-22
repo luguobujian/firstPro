@@ -1,6 +1,20 @@
 <!--logs.wxml-->
-<view class="container log-list">
-  <block wx:for="{{logs}}" wx:for-item="log">
-    <text class="log-item">{{index + 1}}. {{log}}</text>
-  </block>
+<view class="container">
+  <view class='logo-view'>
+    <image src='../../images/icon/main-logo.png'></image>
+  </view>
+  <view class='account'>
+    <input type='text' placeholder="输入卡号/手机号"></input>
+  </view>
+  <view class='password'>
+    <input type='text' placeholder="输入密码"></input>
+    <image class="sOrH" src='../../images/icon/show.png'></image>
+  </view>
+  <view class='btn-view'>
+    <view>登陆</view>
+  </view>
+  <view class='clearfix bottom-view'>
+    <view class='fl'>忘记密码</view> 
+    <view class='fr join'>注册新用户</view>
+  </view>
 </view>

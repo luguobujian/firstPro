@@ -34,6 +34,7 @@ App({
     // })
   },
   globalData: {
+    server: 'https://hj.05570.cn',
     userInfo: null
   }
 })

@@ -14,9 +14,9 @@
   </scroll-view>
 
   <view class="tab-content">
-    <swiper current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
+     <!-- <swiper current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{winHeight}}rpx">
       <swiper-item wx:for="{{[0,1,2,3,4]}}">
-        <scroll-view scroll-y="true" class="scoll-h">
+        <scroll-view scroll-y="true" class="scoll-h"> -->
           <view wx:if="{{ currentTab ==0 }}" class='slider-view'>
             <swiper class='slider' indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" circular="true" interval="{{interval}}" duration="{{duration}}">
               <block wx:for="{{imgUrls}}">
@@ -25,7 +25,7 @@
                 </swiper-item>
               </block>
             </swiper>
-          </view>
+          </view> 
           <block wx:for="{{[1,2,3,4,5,6]}}" wx:key="*this">
             <view class="item-hot clearfix">
               <view class='fl item-con'>
@@ -43,8 +43,8 @@
               </view>
             </view>
           </block>
-        </scroll-view>
+        <!-- </scroll-view>
       </swiper-item>
-    </swiper>
+    </swiper> -->
   </view>
 </view>

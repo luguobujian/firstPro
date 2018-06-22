@@ -21,42 +21,21 @@ Page({
     interval: 5000,
     duration: 1000,
 
+    sellerLocationData: '',
+
     latitude: "",
     longitude: "",
     currentCity: "",
+    markers: [],
 
-
-    // markers: [{
-    //   iconPath: "/resources/others.png",
-    //   id: 0,
-    //   latitude: 23.099994,
-    //   longitude: 113.324520,
-    //   width: 50,
-    //   height: 50
-    // }],
-    // polyline: [{
-    //   points: [{
-    //     longitude: 113.3245211,
-    //     latitude: 23.10229
-    //   }, {
-    //     longitude: 113.324520,
-    //     latitude: 23.21229
-    //   }],
-    //   color: "#FF0000DD",
-    //   width: 2,
-    //   dottedLine: true
-    // }],
-    // controls: [{
-    //   id: 1,
-    //   iconPath: '/resources/location.png',
-    //   position: {
-    //     left: 0,
-    //     top: 300 - 50,
-    //     width: 50,
-    //     height: 50
-    //   },
-    //   clickable: true
-    // }]
+    oneIsShow: 0,
+    oneLogo: "",
+    oneName: "",
+    oneAddress: "",
+    oneTel: "",
+    onejuli: "",
+    oneLatitude: "",
+    oneLongitude: "",
   },
 
 
@@ -131,6 +110,8 @@ Page({
         }
       }
     })
+
+    this.getBannerData();
   },
 
 
@@ -146,24 +127,16 @@ Page({
     wx.getLocation({
       type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标  
       success: (res) => {
-        console.log(res);
-        that.loadCity(res.latitude, res.longitude)
+        // console.log(res);
+        that.loadCity(res.latitude, res.longitude);
+        that.getSellerData(res.latitude, res.longitude)
         that.setData({
           latitude: res.latitude,
           longitude: res.longitude,
-          markers: [{
-            id: "1",
-            latitude: 33.64000,
-            longitude: 116.97700,
-            width: 40,
-            height: 40,
-            iconPath: "../../images/icon/sn.png",
-            // title: "位置"
-          }]
         })
       },
       fail: function(res) {
-        console.log(res);
+        // console.log(res);
       }
     })
   },
@@ -171,13 +144,7 @@ Page({
     let that = this
     wx.request({
       url: 'https://api.map.baidu.com/geocoder/v2/?ak=LmUqsfoEtzX3YH0Zuv5v7B664w0jytO9&location=' + latitude + ',' + longitude + '&output=json',
-      data: {},
-      header: {
-        'Content-Type': 'application/json'
-      },
       success: function(res) {
-        // success    
-        console.log(res);
         let city = res.data.result.addressComponent.city;
         that.setData({
           currentCity: city
@@ -191,9 +158,87 @@ Page({
 
     })
   },
+  getBannerData: function() {
+    wx.request({
+      url: getApp().globalData.server + '/api/banner/lists',
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        group: 1
+      },
+      success: function(res) {
+        console.log(res)
+      }
+    })
+  },
+  getSellerData: function(y, x) {
+    let that = this;
+    wx.request({
+      url: getApp().globalData.server + '/api/seller/nearby_seller',
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        x,
+        y
+      },
+      success: function(res) {
+        console.log(res.data)
+        that.setData({
+          sellerLocationData: res.data.data
+        })
+        let markers = [];
+        for (let i = 0; i < res.data.data.length; i++) {
+          let iconPath = getApp().globalData.server + res.data.data[i].logo_image;
+          markers.push({
+            id: res.data.data[i].id,
+            latitude: res.data.data[i].y,
+            longitude: res.data.data[i].x,
+            width: 40,
+            height: 40,
+            iconPath: '../../images/icon/sn.png',
+            label: {
+              color: "red",
+              bgColor: 'rgba(0,0,0,0)',
+            },
+            // logo_image: (getApp().globalData.server + res.data.data[i].logo_image),
+            // name: res.data.data[i].name,
+            // mobile: res.data.data[i].mobile,
+            // address: res.data.data[i].address,
+            // juli: res.data.data[i].juli,
+            // qiye_id: res.data.data[i].qiye_id,
+          })
+        }
+
+        that.setData({
+          markers
+        })
+      }
+    })
+  },
   //事件处理函数
   markertap(e) {
     console.log(e.markerId)
+    console.log(this)
+    for (let i = 0; i < this.data.sellerLocationData.length; i++) {
+      if (this.data.sellerLocationData[i].id == e.markerId) {
+        this.setData({
+          oneIsShow: 1,
+          oneLogo: getApp().globalData.server + this.data.sellerLocationData[i].sellerqiye.logo_image,
+          oneId: this.data.sellerLocationData[i].id,
+          oneName: this.data.sellerLocationData[i].name,
+          oneAddress: this.data.sellerLocationData[i].address,
+          oneTel: this.data.sellerLocationData[i].mobile,
+          onejuli: this.data.sellerLocationData[i].juli,
+          oneLatitude: this.data.sellerLocationData[i].y,
+          oneLongitude: this.data.sellerLocationData[i].x
+        })
+      }
+    }
+
   },
   openSearchPage: () => {
     wx.navigateTo({
@@ -211,14 +256,28 @@ Page({
     })
   },
   openMap: function() {
+    console.log(this.data.oneLatitude)
+    console.log(this.data.oneLongitude)
 
-    wx.openLocation({
-      latitude: 33.64000,
-      longitude: 116.97700,
-      scale: 28,
-      name: '测试',
-      address: 'cecece'
+    wx.navigateTo({
+      url: '../logs/logs'
     })
-
-  }
+    // wx.openLocation({
+    //   latitude: this.data.oneLatitude-0,
+    //   longitude: this.data.oneLongitude-0,
+    //   scale: 28,
+    //   name: this.data.oneName,
+    //   address: this.data.oneAddress
+    // })
+  },
+  setHideOne: function() {
+    this.setData({
+      oneIsShow: 0,
+    })
+  },
+  openGetApp: () => {
+    wx.navigateTo({
+      url: '../getApp/getApp'
+    })
+  },
 })
