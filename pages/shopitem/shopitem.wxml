@@ -1,25 +1,23 @@
 <!--pages/shopitem/shopitem.wxml-->
 <view>
-  <view>
-    <view class='item-one clearfix'>
-      <view class='fl item-one-logo'>
-        <image src='../../images/icon/top.png'></image>
-      </view>
-      <view class='fl item-one-info'>
-        <view class='clearfix item-one-for'>
-          <view class='fr'>7770km</view>
-          <image class='fr' src='../../images/icon/go.png'></image>
+  <view wx:for="{{ sellerLocationData }}" wx:key="{{ item.id }}" class='item-one clearfix'>
+    <view class='fl item-one-logo'>
+      <image src='{{ server + item.sellerqiye.logo_image }}'></image>
+    </view>
+    <view class='fl item-one-info'>
+      <view class='clearfix item-one-for' data-id="{{ item.id }}" bindtap='openMap'>
+        <view class='fr'>{{ item.juli }}m</view>
+        <image class='fr' src='../../images/icon/go.png'></image>
 
-        </view>
-        <view class='item-one-tit'>1.体昂那颗</view>
-        <view class='item-one-add'>海淀区北土城西路（牡丹园环岛冬）</view>
-        <view class='item-one-call'>联系方式：0232-88888888</view>
-        <view class='item-one-sale'>
-          <view class='fl'>惠军卡专享</view>
-          满1000减200限时开启，进店就送
-        </view>
-        <view class='item-one-btn'>领取惠军卡</view>
       </view>
+      <view class='item-one-tit'>{{ index + 1 }}.{{ item.name }}</view>
+      <view class='item-one-add'>{{ item.address }}</view>
+      <view class='item-one-call'>联系方式：{{ item.mobile }}</view>
+      <view class='item-one-sale'>
+        <view class='fl'>惠军卡专享</view>
+        满1000减200限时开启，进店就送
+      </view>
+      <view wx:if="{{ isLog == false }}" class='item-one-btn' bindtap='openGetApp'>领取惠军卡</view>
     </view>
   </view>
 </view>

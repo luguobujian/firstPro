@@ -23,7 +23,7 @@
     <swiper class='slider' indicator-dots="{{indicatorDots}}" indicator-color="{{indicatorColor}}" indicator-active-color="{{indicatorActiveColor}}" autoplay="{{autoplay}}" circular="true" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}">
         <swiper-item>
-          <image src="{{item}}" class="slide-image" />
+          <image src="{{item}}" class="slide-image" bindtap="swipclick"/>
         </swiper-item>
       </block>
     </swiper>
@@ -101,10 +101,10 @@
         <view class='fl'>惠军卡专享</view>
         满1000减200限时开启，进店就送
       </view>
-      <view class='item-one-btn' bindtap='openGetApp'>领取惠军卡</view>
+      <view wx:if="{{ isLog == false }}" class='item-one-btn' bindtap='openGetApp'>领取惠军卡</view>
     </view>
   </view>
-  <view  wx:if="{{ oneIsShow }}" class='down' bindtap='setHideOne'>
+  <view wx:if="{{ oneIsShow }}" class='down' bindtap='setHideOne'>
     <image src='../../images/icon/arrow.png'></image>
   </view>
 </view>

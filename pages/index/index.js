@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    isLog: false,
     // motto: 'Hello World',
     // userInfo: {},
     // hasUserInfo: false,
@@ -67,49 +68,66 @@ Page({
     //     }
     //   })
     // }
-    wx.getSetting({
-      success: (res) => {
-        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) { //非初始化进入该页面,且未授权
-          wx.showModal({
-            title: '是否授权当前位置',
-            content: '需要获取您的地理位置，请确认授权，否则无法获取您所需数据',
-            success: function(res) {
-              if (res.cancel) {
-                wx.showToast({
-                  title: '授权失败',
-                  icon: 'success',
-                  duration: 1000
-                })
-              } else if (res.confirm) {
-                wx.openSetting({
-                  success: function(dataAu) {
-                    if (dataAu.authSetting["scope.userLocation"] == true) {
-                      wx.showToast({
-                        title: '授权成功',
-                        icon: 'success',
-                        duration: 1000
-                      })
-                      //再次授权，调用getLocationt的API
-                      this.getLocation(this);
-                    } else {
-                      wx.showToast({
-                        title: '授权失败',
-                        icon: 'success',
-                        duration: 1000
-                      })
-                    }
-                  }
-                })
-              }
-            }
-          })
-        } else if (res.authSetting['scope.userLocation'] == undefined) { //初始化进入
-          this.getLocation(this);
-        } else { //授权后默认加载
-          this.getLocation(this);
+    let that = this;
+    wx.getStorage({
+        key: 'log',
+        success: function(res) {
+          console.log(res.data)
+          console.log(that)
+          if (res.data.msg == "登录成功") {
+            that.setData({
+              isLog: true
+            })
+          } else {
+            that.setData({
+              isLog: false
+            })
+          }
         }
-      }
-    })
+      }),
+      wx.getSetting({
+        success: (res) => {
+          if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) { //非初始化进入该页面,且未授权
+            wx.showModal({
+              title: '是否授权当前位置',
+              content: '需要获取您的地理位置，请确认授权，否则无法获取您所需数据',
+              success: function(res) {
+                if (res.cancel) {
+                  wx.showToast({
+                    title: '授权失败',
+                    icon: 'success',
+                    duration: 1000
+                  })
+                } else if (res.confirm) {
+                  wx.openSetting({
+                    success: function(dataAu) {
+                      if (dataAu.authSetting["scope.userLocation"] == true) {
+                        wx.showToast({
+                          title: '授权成功',
+                          icon: 'success',
+                          duration: 1000
+                        })
+                        //再次授权，调用getLocationt的API
+                        this.getLocation(this);
+                      } else {
+                        wx.showToast({
+                          title: '授权失败',
+                          icon: 'success',
+                          duration: 1000
+                        })
+                      }
+                    }
+                  })
+                }
+              }
+            })
+          } else if (res.authSetting['scope.userLocation'] == undefined) { //初始化进入
+            this.getLocation(this);
+          } else { //授权后默认加载
+            this.getLocation(this);
+          }
+        }
+      })
 
     this.getBannerData();
   },
@@ -173,6 +191,17 @@ Page({
       }
     })
   },
+  swipclick: function(e) {
+
+    console.log(this.data.swiperCurrent);
+
+    // wx.switchTab({
+
+    //   url: this.data.links[this.data.swiperCurrent]
+
+    // })
+
+  },
   getSellerData: function(y, x) {
     let that = this;
     wx.request({
@@ -186,7 +215,7 @@ Page({
         y
       },
       success: function(res) {
-        console.log(res.data)
+        // console.log(res.data)
         that.setData({
           sellerLocationData: res.data.data
         })
@@ -221,8 +250,8 @@ Page({
   },
   //事件处理函数
   markertap(e) {
-    console.log(e.markerId)
-    console.log(this)
+    // console.log(e.markerId)
+    // console.log(this)
     for (let i = 0; i < this.data.sellerLocationData.length; i++) {
       if (this.data.sellerLocationData[i].id == e.markerId) {
         this.setData({
@@ -256,19 +285,19 @@ Page({
     })
   },
   openMap: function() {
-    console.log(this.data.oneLatitude)
-    console.log(this.data.oneLongitude)
-
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-    // wx.openLocation({
-    //   latitude: this.data.oneLatitude-0,
-    //   longitude: this.data.oneLongitude-0,
-    //   scale: 28,
-    //   name: this.data.oneName,
-    //   address: this.data.oneAddress
-    // })
+    if (this.data.isLog) {
+      wx.openLocation({
+        latitude: this.data.oneLatitude - 0,
+        longitude: this.data.oneLongitude - 0,
+        scale: 28,
+        name: this.data.oneName,
+        address: this.data.oneAddress
+      })
+    } else {
+      wx.redirectTo({
+        url: '../logs/logs'
+      })
+    }
   },
   setHideOne: function() {
     this.setData({

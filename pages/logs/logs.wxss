@@ -33,6 +33,7 @@ page {
   position: absolute;
   bottom: 22rpx;
   right: 0rpx;
+  z-index: 999;
 }
 .btn-view {
   margin-top: 70rpx;
