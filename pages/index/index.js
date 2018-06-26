@@ -4,23 +4,22 @@ const app = getApp()
 
 Page({
   data: {
+    server: getApp().globalData.server,
     isLog: false,
     // motto: 'Hello World',
     // userInfo: {},
     // hasUserInfo: false,
     // canIUse: wx.canIUse('button.open-type.getUserInfo')
 
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
+    imgUrls: [],
     indicatorDots: true,
     indicatorColor: '#96a6a6',
     indicatorActiveColor: '#f8f8f8',
     autoplay: true,
     interval: 5000,
     duration: 1000,
+    mainDataList: [],
+    qiyeS: [],
 
     sellerLocationData: '',
 
@@ -69,6 +68,10 @@ Page({
     //   })
     // }
     let that = this;
+    that.getBannerData();
+    that.getQiYeData();
+    that.getHotData();
+
     wx.getStorage({
         key: 'log',
         success: function(res) {
@@ -129,7 +132,7 @@ Page({
         }
       })
 
-    this.getBannerData();
+
   },
 
 
@@ -177,6 +180,7 @@ Page({
     })
   },
   getBannerData: function() {
+    let that = this;
     wx.request({
       url: getApp().globalData.server + '/api/banner/lists',
       method: 'post',
@@ -187,20 +191,64 @@ Page({
         group: 1
       },
       success: function(res) {
-        console.log(res)
+
+        if (res.data.msg == "获取成功") {
+          console.log(res.data.data)
+          that.setData({
+            imgUrls: res.data.data
+          })
+        }
       }
     })
   },
   swipclick: function(e) {
-
-    console.log(this.data.swiperCurrent);
-
-    // wx.switchTab({
-
-    //   url: this.data.links[this.data.swiperCurrent]
-
-    // })
-
+    // console.log(e);
+    wx.navigateTo({
+      url: '../headlineOneInfo/headlineOneInfo?id=' + e.currentTarget.dataset.id
+    })
+  },
+  getHotData: function() {
+    let that = this;
+    wx.request({
+      url: getApp().globalData.server + '/api/article/arclist',
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        category_id: "",
+        page: "1",
+        limit: "999999",
+        flag: "tuijian"
+      },
+      success: function(res) {
+        // console.log(res.data.data)
+        if (res.data.data.length < 3) {
+          that.setData({
+            autoplay: false
+          })
+        }
+        that.setData({
+          mainDataList: res.data.data
+        })
+      }
+    })
+  },
+  getQiYeData: function() {
+    let that = this;
+    wx.request({
+      url: getApp().globalData.server + '/api/seller/qiye',
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function(res) {
+        // console.log(res)
+        that.setData({
+          qiyeS: res.data.data
+        })
+      }
+    })
   },
   getSellerData: function(y, x) {
     let that = this;
@@ -221,30 +269,30 @@ Page({
         })
         let markers = [];
         for (let i = 0; i < res.data.data.length; i++) {
-          let iconPath = getApp().globalData.server + res.data.data[i].logo_image;
-          markers.push({
-            id: res.data.data[i].id,
-            latitude: res.data.data[i].y,
-            longitude: res.data.data[i].x,
-            width: 40,
-            height: 40,
-            iconPath: '../../images/icon/sn.png',
-            label: {
-              color: "red",
-              bgColor: 'rgba(0,0,0,0)',
-            },
-            // logo_image: (getApp().globalData.server + res.data.data[i].logo_image),
-            // name: res.data.data[i].name,
-            // mobile: res.data.data[i].mobile,
-            // address: res.data.data[i].address,
-            // juli: res.data.data[i].juli,
-            // qiye_id: res.data.data[i].qiye_id,
+          wx.downloadFile({
+            url: getApp().globalData.server + res.data.data[i].sellerqiye.maplogo_image, //仅为示例，并非真实的资源
+            success: function(ret) {
+              // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
+              // console.log(res)
+              // console.log(ret)
+              markers.push({
+                id: res.data.data[i].id,
+                latitude: res.data.data[i].y,
+                longitude: res.data.data[i].x,
+                width: 40,
+                height: 40,
+                iconPath: ret.tempFilePath,
+                label: {
+                  color: "red",
+                  bgColor: 'rgba(0,0,0,0)',
+                }
+              })
+              that.setData({
+                markers
+              })
+            }
           })
         }
-
-        that.setData({
-          markers
-        })
       }
     })
   },

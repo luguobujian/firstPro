@@ -61,7 +61,8 @@
 .slider-view {
   width: 100%;
   overflow: hidden;
-  padding: 20rpx 0 20rpx 30rpx;
+  padding: 20rpx 0; 
+  text-align: center;
   background-color: #f8f8f8;
 }
 
@@ -155,9 +156,11 @@
 }
 
 .merchant-logo > image {
-  width: 110rpx;
-  height: 110rpx;
-  margin: 24rpx 30rpx;
+  width: 108rpx;
+  height: 108rpx;
+  margin: 24rpx 28rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 6rpx;
 }
 
 .merchant-info {

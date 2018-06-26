@@ -50,3 +50,19 @@
   top: 16rpx;
   right: 16rpx;
 }
+
+.last-search-view {
+  padding: 18rpx 32rpx;
+  background-color: #fff;
+}
+
+.last-search-view  view {
+  color: #b5b5b5;
+  font-size: 24rpx;
+}
+
+.last-search-con {
+  color: #c0c0c0;
+  font-size: 26rpx;
+  padding: 18rpx 30rpx;
+}

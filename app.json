@@ -3,8 +3,10 @@
     "pages/index/index",
     "pages/shopitem/shopitem",
     "pages/search/search",
+    "pages/searchShopItem/searchShopItem",
     "pages/headline/headline",
     "pages/headlineOne/headlineOne",
+    "pages/headlineOneInfo/headlineOneInfo",
     "pages/me/me",
     "pages/logs/logs",
     "pages/getApp/getApp"

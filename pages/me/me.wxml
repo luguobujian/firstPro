@@ -6,23 +6,23 @@
     <view class='logo-view'>
       <image src='../../images/logo.png'></image>
     </view>
-    <view class='qr-code-view'>
-      <image></image>
+    <view class='qr-code-view' bindtap='showUCard'>
+      <image src='{{ thisCard_logo }}'></image>
     </view>
     <view class='arrow-view'>
       <image src='../../images/arrow.png'></image>
     </view>
     <view class='name-view'>
-      <view>汪候诸葛</view>
+      <view>{{ name }}</view>
     </view>
     <view class='avatar-view'>
-      <image src=''></image>
+      <image src='{{ avartar }}'></image>
     </view>
     <view class='clearfix id-view'>
-      <view class='fl'>8888</view>
-      <view class='fl'>0000</view>
-      <view class='fl'>8888</view>
-      <view class='fl'>9999</view>
+      <view class='fl'>{{ thisCard01 }}</view>
+      <view class='fl'>{{ thisCard02 }}</view>
+      <view class='fl'>{{ thisCard03 }}</view>
+      <view class='fl'>{{ thisCard04 }}</view>
     </view>
     <view class='clearfix small-tit'>
       <view class='fl'>惠军工程</view>
@@ -31,5 +31,12 @@
       <view class='fl'>优待军属</view>
     </view>
   </view>
-
+  <view wx:if="{{ isShow }}" class='qrcord' bindtap='showUCard'>
+    <view class='con-view'>
+      <view class='qrcord-tit'>二维码</view>
+      <view class='qrcord-image-view'>
+        <image src='{{ thisCard_img }}'></image>
+      </view>
+    </view>
+  </view>
 </view>

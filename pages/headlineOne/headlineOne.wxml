@@ -2,22 +2,33 @@
 <!-- <text>pages/headlineOne/headlineOne.wxml</text> -->
 <view class='container'>
   <view>
-    <block wx:for="{{[1,2,3,4,5,6]}}" wx:key="*this">
-      <view class="item-hot clearfix">
+    <block wx:if="{{ mainDataList.length }}" wx:for="{{mainDataList}}" wx:key="{{ item.id }}">
+      <view class="item-hot clearfix" data-id="{{ item.id }}" bindtap='goNewsInfo'>
         <view class='fl item-con'>
-          <view class="item-tit">少年队员进入老年社区送温…</view>
-          <view class="item-some-info">摘要：近日，某学校组织少年队员进入老年社区做文艺汇…</view>
+          <view class="item-tit">{{ item.title }}</view>
+          <view class="item-some-info">摘要：{{ item.desc }}</view>
           <view class='item-btm clearfix'>
-            <view class='fl item-tag'>热点</view>
-            <view class='fl item-for'>来源</view>
-            <view class='fl item-date'>60/07</view>
-            <view class='fl item-time'>11:11</view>
+            <!-- <view class='fl item-tag'>{{ item.cmscategory.title }}</view> -->
+            <view class='fl item-for'>{{ item.admin.username }}</view>
+            <view class='fl item-date'>{{ item.createtime_datetime }}</view>
+            <!-- <view class='fl item-time'>11:11</view> -->
           </view>
         </view>
         <view class='fl image-view'>
-          <image></image>
+          <image src='{{ server + item.lit_image }}'></image>
         </view>
       </view>
     </block>
+    <view wx:if="{{ mainDataList.length }}" class='btm-info'>
+      <view>已经到底了哦～</view>
+    </view>
+    <view wx:if="{{ !mainDataList.length }}">
+      <view class='logo-view l'>
+        <image src='../../images/icon/get-app-logo.png'></image>
+      </view>
+      <view class='account'>
+        <view>未搜索到相关栏目资讯</view>
+      </view>
+    </view>
   </view>
 </view>

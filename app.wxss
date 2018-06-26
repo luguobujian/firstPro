@@ -30,3 +30,32 @@
 .clearfix {
   zoom: 1;
 }
+
+.logo-view.l {
+  text-align: center;
+  margin-top: 270rpx;
+}
+
+.logo-view image {
+  width: 402rpx;
+  height: 274rpx;
+}
+
+.account {
+  margin: 100rpx 86rpx 0;
+}
+
+.account view {
+  width: 578rpx;
+  color: #2f2f2f;
+  font-size: 30rpx;
+  text-align: center;
+  letter-spacing: 2rpx;
+}
+.btm-info view {
+  color: #999;
+  font-size: 24rpx;
+  text-align: center;
+  line-height: 74rpx;
+  background-color: #f8f8f8;
+}

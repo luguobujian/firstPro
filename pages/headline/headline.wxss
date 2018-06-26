@@ -1,5 +1,10 @@
 /* pages/headline/headline.wxss */
 
+page, .container {
+  min-height: 100%;
+  background-color: #f8f8f8;
+}
+
 .tab-h {
   height: 88rpx;
   width: 100%;
@@ -36,7 +41,8 @@
 .slider-view {
   width: 100%;
   overflow: hidden;
-  padding: 20rpx 0 20rpx 30rpx;
+  padding: 20rpx 0;
+  text-align: center;
   background-color: #f8f8f8;
 }
 
@@ -73,6 +79,7 @@
 }
 
 .item-some-info {
+  height: 60rpx;
   color: #8c8c8c;
   font-size: 22rpx;
   line-height: 30rpx;

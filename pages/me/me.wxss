@@ -94,3 +94,40 @@ page, .container {
   width: 2rpx;
   background-color: #4b9277;
 }
+
+.qrcord {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.con-view {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.qrcord-tit {
+  width: 562rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #fff;
+  background-color: #a70000;
+}
+
+.qrcord-image-view {
+  background-color: #fff;
+}
+
+.qrcord-image-view image {
+  width: 404rpx;
+  height: 404rpx;
+  padding: 14rpx;
+  margin: 56rpx 0;
+  box-shadow:0px 0px  5px 5px #aaa;
+}

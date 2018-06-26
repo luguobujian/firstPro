@@ -5,22 +5,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    server: getApp().globalData.server,
     winHeight: "", //窗口高度
     currentTab: 0, //预设当前项的值
     scrollLeft: 0, //tab标题的滚动条位置
-    expertList: [{ //假数据
-      img: "avatar.png",
-      name: "欢顔",
-      tag: "知名情感博主",
-      answer: 134,
-      listen: 2234
-    }],
-
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
+    menuList: [],
+    mainDataList: [],
+    imgUrls: [],
     indicatorDots: true,
     indicatorColor: '#96a6a6',
     indicatorActiveColor: '#f8f8f8',
@@ -46,23 +37,27 @@ Page({
   },
   // 点击标题切换当前页时改变样式
   swichNav: function(e) {
-    var cur = e.target.dataset.current;
-    if (this.data.currentTaB == cur) {
-      return false;
-    } else {
-      if (cur == 0) {
-        this.setData({
-          winHeight: 372 + 224 * 6
-        });
-      } else {
-        this.setData({
-          winHeight: 224 * 6
-        });
-      }
-      this.setData({
-        currentTab: cur
-      })
-    }
+    console.log(e)
+    wx.navigateTo({
+      url: '../headlineOne/headlineOne?id=' + e.currentTarget.dataset.categoryId
+    })
+    // var cur = e.target.dataset.current;
+    // if (this.data.currentTaB == cur) {
+    //   return false;
+    // } else {
+    //   if (cur == 0) {
+    //     this.setData({
+    //       winHeight: 372 + 224 * 6
+    //     });
+    //   } else {
+    //     this.setData({
+    //       winHeight: 224 * 6
+    //     });
+    //   }
+    //   this.setData({
+    //     currentTab: cur
+    //   })
+    // }
   },
   //判断当前滚动超过一屏时，设置tab标题滚动条。
   checkCor: function() {
@@ -78,16 +73,101 @@ Page({
   },
   onLoad: function() {
     let that = this;
+    that.getMenuData();
+    that.getBannerData();
+    that.getMainData();
     //  高度自适应
-    if (that.data.currentTab == 0) {
-      that.setData({
-        winHeight: 372 + 224 * that.data.imgUrls.length
-      });
-    } else {
-      that.setData({
-        winHeight: 224 * that.data.imgUrls.length
-      });
-    }
+    // if (that.data.currentTab == 0) {
+    //   that.setData({
+    //     winHeight: 372 + 224 * that.data.imgUrls.length
+    //   });
+    // } else {
+    //   that.setData({
+    //     winHeight: 224 * that.data.imgUrls.length
+    //   });
+    // }
+
+  },
+  getMenuData: function() {
+    let that = this;
+    wx.request({
+      url: getApp().globalData.server + '/api/common/category_menu',
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        client: "xcx"
+      },
+      success: function(res) {
+        console.log(res)
+        if (res.data.msg == "获取成功") {
+          console.log(res.data.data)
+          that.setData({
+            menuList: res.data.data
+          })
+        }
+      },
+      fail: function() {
+        console.log(res)
+      }
+    })
+  },
+  getBannerData: function() {
+    let that = this;
+    wx.request({
+      url: getApp().globalData.server + '/api/banner/lists',
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        group: 2
+      },
+      success: function(res) {
+
+        if (res.data.msg == "获取成功") {
+          console.log(res.data.data)
+          that.setData({
+            imgUrls: res.data.data
+          })
+        }
+      }
+    })
+  },
+  getMainData: function() {
+    let that = this;
+    wx.request({
+      url: getApp().globalData.server + '/api/article/arclist',
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        category_id: "",
+        page: "1",
+        limit: "999999",
+        flag: "tuijian"
+      },
+      success: function(res) {
+        
+        that.setData({
+          mainDataList: res.data.data
+        })
+      }
+    })
+  },
+  swipclick: function(e) {
+    console.log(e);
+    wx.navigateTo({
+      url: '../headlineOneInfo/headlineOneInfo?id=' + e.currentTarget.dataset.id
+    })
+  },
+  goNewsInfo: function(e) {
+    console.log(e),
+      wx.navigateTo({
+        url: '../headlineOneInfo/headlineOneInfo?id=' + e.currentTarget.dataset.id
+      })
   },
   // footerTap: app.footerTap,
 
