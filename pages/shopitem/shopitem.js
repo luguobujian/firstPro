@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isShowData: true,
     isShow: false,
+    loadingHidden: false,
     server: getApp().globalData.server,
     sellerLocationData: '',
     oneLogo: "",
@@ -27,83 +29,29 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
+    that.getSellerData(options.y, options.x)
     wx.getStorage({
-        key: 'log',
-        success: function(res) {
-          console.log(res.data)
-          console.log(that)
-          if (res.data.msg == "登录成功") {
-            that.setData({
-              isLog: true
-            })
-          } else {
-            that.setData({
-              isLog: false
-            })
-          }
+      key: 'log',
+      success: function(res) {
+
+        console.log(res.data)
+        console.log(that)
+        if (res.data.msg == "登录成功") {
+          that.setData({
+            isLog: true
+          })
+        } else {
+          that.setData({
+            isLog: false
+          })
         }
-      }),
-      // wx.showNavigationBarLoading();
-      wx.getSetting({
-        success: (res) => {
-          if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) { //非初始化进入该页面,且未授权
-            wx.showModal({
-              title: '是否授权当前位置',
-              content: '需要获取您的地理位置，请确认授权，否则无法获取您所需数据',
-              success: function(res) {
-                if (res.cancel) {
-                  wx.showToast({
-                    title: '授权失败',
-                    icon: 'success',
-                    duration: 1000
-                  })
-                } else if (res.confirm) {
-                  wx.openSetting({
-                    success: function(dataAu) {
-                      if (dataAu.authSetting["scope.userLocation"] == true) {
-                        wx.showToast({
-                          title: '授权成功',
-                          icon: 'success',
-                          duration: 1000
-                        })
-                        //再次授权，调用getLocationt的API
-                        this.getLocation(this);
-                      } else {
-                        wx.showToast({
-                          title: '授权失败',
-                          icon: 'success',
-                          duration: 1000
-                        })
-                      }
-                    }
-                  })
-                }
-              }
-            })
-          } else if (res.authSetting['scope.userLocation'] == undefined) { //初始化进入
-            this.getLocation(this);
-          } else { //授权后默认加载
-            this.getLocation(this);
-          }
-        }
-      })
-  },
-  getLocation: (that) => {
-    wx.getLocation({
-      type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标  
-      success: (res) => {
-        // console.log(res);
-        that.getSellerData(res.latitude, res.longitude)
-        that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude,
-        })
       },
-      fail: function(res) {
-        // console.log(res);
+      fail: function() {
+
       }
     })
   },
+
   getSellerData: function(y, x) {
     let that = this;
     wx.request({
@@ -119,7 +67,25 @@ Page({
       success: function(res) {
         console.log(res.data)
         that.setData({
-          sellerLocationData: res.data.data
+          loadingHidden: true
+        })
+        console.log(that.data.loadingHidden)
+        if (res.data.data) {
+          that.setData({
+            sellerLocationData: res.data.data,
+            isShowData: true
+          })
+        } else {
+          that.setData({
+            isShowData: false
+          })
+        }
+
+
+      },
+      fail: function() {
+        that.setData({
+          loadingHidden: true
         })
       }
     })
@@ -131,11 +97,13 @@ Page({
           this.setData({
             name: this.data.sellerLocationData[i].name,
             address: this.data.sellerLocationData[i].address,
-            latitude: this.data.sellerLocationData[i].y,
-            longitude: this.data.sellerLocationData[i].x
+            latitude: this.data.sellerLocationData[i].tx_y,
+            longitude: this.data.sellerLocationData[i].tx_x
           })
         }
       }
+      console.log(this.data.latitude - 0);
+      console.log(this.data.longitude - 0);
       wx.openLocation({
         latitude: this.data.latitude - 0,
         longitude: this.data.longitude - 0,

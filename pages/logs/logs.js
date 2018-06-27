@@ -95,5 +95,10 @@ Page({
         duration: 2000
       })
     }
+  },
+  openGetApp: (e) => {
+    wx.navigateTo({
+      url: '../getApp/getApp?m='+e.currentTarget.dataset.mark
+    })
   }
 })

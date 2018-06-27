@@ -2,7 +2,7 @@
 <!-- <text>pages/headlineOne/headlineOne.wxml</text> -->
 <view class='container'>
   <view>
-    <block wx:if="{{ mainDataList.length }}" wx:for="{{mainDataList}}" wx:key="{{ item.id }}">
+    <block wx:if="{{ isShowData }}" wx:for="{{mainDataList}}" wx:key="{{ item.id }}">
       <view class="item-hot clearfix" data-id="{{ item.id }}" bindtap='goNewsInfo'>
         <view class='fl item-con'>
           <view class="item-tit">{{ item.title }}</view>
@@ -19,10 +19,10 @@
         </view>
       </view>
     </block>
-    <view wx:if="{{ mainDataList.length }}" class='btm-info'>
+    <view wx:if="{{ isShowData }}" class='btm-info'>
       <view>已经到底了哦～</view>
     </view>
-    <view wx:if="{{ !mainDataList.length }}">
+    <view wx:if="{{ !isShowData }}">
       <view class='logo-view l'>
         <image src='../../images/icon/get-app-logo.png'></image>
       </view>

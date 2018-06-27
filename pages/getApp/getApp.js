@@ -5,14 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    info: "请打开或下载惠军卡APP才可以领取惠军卡哦！"
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    let that = this
+    if (options.m == "l1") {
+      that.setData({
+        info: "请打开或下载惠军卡APP完成找回密码哦！"
+      })
+    } else if (options.m == "l2") {
+      that.setData({
+        info: "请打开或下载惠军卡APP完成注册新用户哦！"
+      })
+    }
   },
 
   /**

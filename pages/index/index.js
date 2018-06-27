@@ -134,16 +134,6 @@ Page({
 
 
   },
-
-
-  // getUserInfo: function(e) {
-  //   console.log(e)
-  //   app.globalData.userInfo = e.detail.userInfo
-  //   this.setData({
-  //     userInfo: e.detail.userInfo,
-  //     hasUserInfo: true
-  //   })
-  // },
   getLocation: (that) => {
     wx.getLocation({
       type: 'wgs84', // 默认为 wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标  
@@ -263,7 +253,7 @@ Page({
         y
       },
       success: function(res) {
-        // console.log(res.data)
+        console.log(res.data)
         that.setData({
           sellerLocationData: res.data.data
         })
@@ -277,8 +267,8 @@ Page({
               // console.log(ret)
               markers.push({
                 id: res.data.data[i].id,
-                latitude: res.data.data[i].y,
-                longitude: res.data.data[i].x,
+                latitude: res.data.data[i].tx_y,
+                longitude: res.data.data[i].tx_x,
                 width: 40,
                 height: 40,
                 iconPath: ret.tempFilePath,
@@ -327,9 +317,9 @@ Page({
       url: '../headline/headline'
     })
   },
-  openShopItemsPage: () => {
+  openShopItemsPage: function() {
     wx.navigateTo({
-      url: '../shopitem/shopitem'
+      url: '../shopitem/shopitem?x=' + this.data.longitude + '&y=' + this.data.latitude
     })
   },
   openMap: function() {

@@ -15,7 +15,7 @@
     <view>登陆</view>
   </view>
   <view class='clearfix bottom-view'>
-    <view class='fl'>忘记密码</view> 
-    <view class='fr join'>注册新用户</view>
+    <view class='fl' data-mark="l1" bindtap='openGetApp'>忘记密码</view> 
+    <view class='fr join' data-mark="l2" bindtap='openGetApp'>注册新用户</view>
   </view>
 </view>

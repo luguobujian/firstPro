@@ -5,7 +5,7 @@
     <image src='../../images/icon/get-app-logo.png'></image>
   </view>
   <view class='account'>
-    <view>请打开或下载惠军卡APP才可以领取惠军卡哦！</view>
+    <view>{{ info }}</view>
   </view>
   <view class='btn-view'>
     <view>下载惠军APP</view>

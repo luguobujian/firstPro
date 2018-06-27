@@ -6,7 +6,8 @@ Page({
    */
   data: {
     server: getApp().globalData.server,
-    mainDataList: []
+    mainDataList: [],
+    isShowData: true
   },
 
   /**
@@ -28,9 +29,17 @@ Page({
       },
       success: function(res) {
         console.log(res);
-        that.setData({
-          mainDataList: res.data.data
-        })
+        if (res.data.data) {
+          that.setData({
+            mainDataList: res.data.data,
+            isShowData: true
+          })
+        } else {
+          that.setData({
+            isShowData: false
+          })
+        }
+
       }
     })
   },
