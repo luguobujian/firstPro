@@ -19,7 +19,7 @@
         </view>
       </view>
     </block>
-    <view wx:if="{{ isShowData }}" class='btm-info'>
+    <view wx:if="{{ mainDataList.length }}" class='btm-info'>
       <view>已经到底了哦～</view>
     </view>
     <view wx:if="{{ !isShowData }}">

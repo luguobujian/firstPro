@@ -33,13 +33,34 @@ Page({
     wx.getStorage({
       key: 'log',
       success: function(res) {
-
-        console.log(res.data)
-        console.log(that)
         if (res.data.msg == "登录成功") {
-          that.setData({
-            isLog: true
+          wx.request({
+            url: getApp().globalData.server + '/api/user/info',
+            method: 'post',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+              token: res.data.data.userinfo.token
+            },
+            success: function(res) {
+              if (res.data.data) {
+                that.setData({
+                  isLog: true
+                })
+              } else {
+                that.setData({
+                  isLog: false
+                })
+              }
+            },
+            fail: function(res) {
+              that.setData({
+                isLog: false
+              })
+            }
           })
+
         } else {
           that.setData({
             isLog: false

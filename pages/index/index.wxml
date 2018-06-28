@@ -69,7 +69,7 @@
     </view>
   </view>
 
-  <view>
+  <view class=''>
     <view class='tit'>
       <view class='perpendicular'>
       </view>
@@ -84,7 +84,7 @@
   </view>
 
 
-  <view wx:if="{{ oneIsShow }}" class='item-one clearfix'>
+  <view hidden="{{ oneIsShow }}" class='item-one clearfix'>
     <view class='fl item-one-logo'>
       <image src='{{ oneLogo }}'></image>
     </view>
@@ -99,12 +99,12 @@
       <view class='item-one-call'>联系方式：{{ oneTel }}</view>
       <view class='item-one-sale'>
         <view class='fl'>惠军卡专享</view>
-        满1000减200限时开启，进店就送
+        {{ oneDongTai }}
       </view>
       <view wx:if="{{ isLog == false }}" class='item-one-btn' bindtap='openGetApp'>领取惠军卡</view>
     </view>
   </view>
-  <view wx:if="{{ oneIsShow }}" class='down' bindtap='setHideOne'>
+  <view hidden="{{ oneIsShow }}" class='down' bindtap='setHideOne'>
     <image src='../../images/icon/arrow.png'></image>
   </view>
 </view>

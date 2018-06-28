@@ -39,6 +39,9 @@ Page({
     })
   },
   goSearch: function() {
+    this.setData({
+      lastSearch: this.data.inputValue
+    })
     wx.navigateTo({
       url: '../searchShopItem/searchShopItem?search=' + this.data.inputValue
     })

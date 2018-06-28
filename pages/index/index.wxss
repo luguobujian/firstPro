@@ -1,5 +1,13 @@
 /**index.wxss**/
 
+.container {
+  /* margin-bottom: 500rpx; */
+}
+
+.padd-b {
+  padding-bottom: 500rpx;
+}
+
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -61,7 +69,7 @@
 .slider-view {
   width: 100%;
   overflow: hidden;
-  padding: 20rpx 0; 
+  padding: 20rpx 0;
   text-align: center;
   background-color: #f8f8f8;
 }
@@ -244,13 +252,15 @@
 .item-one-sale {
   color: #ff8127;
   font-size: 18rpx;
+  line-height: 44rpx;
   margin-bottom: 42rpx;
 }
 
 .item-one-sale view {
   font-size: 16rpx;
   line-height: 16rpx;
-  padding: 5rpx 4rpx 3rpx;
+  padding: 4rpx;
+  margin-top: 8rpx;
   margin-right: 16rpx;
   border: 1rpx solid #ff8127;
   border-radius: 6rpx;

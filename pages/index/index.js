@@ -28,7 +28,7 @@ Page({
     currentCity: "",
     markers: [],
 
-    oneIsShow: 0,
+    oneIsShow: 1,
     oneLogo: "",
     oneName: "",
     oneAddress: "",
@@ -36,6 +36,7 @@ Page({
     onejuli: "",
     oneLatitude: "",
     oneLongitude: "",
+    oneDongTai: ""
   },
 
 
@@ -78,8 +79,31 @@ Page({
           console.log(res.data)
           console.log(that)
           if (res.data.msg == "登录成功") {
-            that.setData({
-              isLog: true
+            wx.request({
+              url: getApp().globalData.server + '/api/user/info',
+              method: 'post',
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              data: {
+                token: res.data.data.userinfo.token
+              },
+              success: function(res) {
+                if (res.data.data) {
+                  that.setData({
+                    isLog: true
+                  })
+                } else {
+                  that.setData({
+                    isLog: false
+                  })
+                }
+              },
+              fail: function(res) {
+                that.setData({
+                  isLog: false
+                })
+              }
             })
           } else {
             that.setData({
@@ -271,10 +295,15 @@ Page({
                 longitude: res.data.data[i].tx_x,
                 width: 40,
                 height: 40,
+                // title: res.data.data[i].name,
                 iconPath: ret.tempFilePath,
-                label: {
-                  color: "red",
-                  bgColor: 'rgba(0,0,0,0)',
+                callout: {
+                  content: res.data.data[i].name,
+                  color: "#ffffff",
+                  fontSize: 12,
+                  padding: 4,
+                  borderRadius: 8,
+                  bgColor: '#ca0000',
                 }
               })
               that.setData({
@@ -293,7 +322,7 @@ Page({
     for (let i = 0; i < this.data.sellerLocationData.length; i++) {
       if (this.data.sellerLocationData[i].id == e.markerId) {
         this.setData({
-          oneIsShow: 1,
+          oneIsShow: 0,
           oneLogo: getApp().globalData.server + this.data.sellerLocationData[i].sellerqiye.logo_image,
           oneId: this.data.sellerLocationData[i].id,
           oneName: this.data.sellerLocationData[i].name,
@@ -301,7 +330,8 @@ Page({
           oneTel: this.data.sellerLocationData[i].mobile,
           onejuli: this.data.sellerLocationData[i].juli,
           oneLatitude: this.data.sellerLocationData[i].y,
-          oneLongitude: this.data.sellerLocationData[i].x
+          oneLongitude: this.data.sellerLocationData[i].x,
+          oneDongTai: this.data.sellerLocationData[i].sellerqiye.dongtai
         })
       }
     }
@@ -339,7 +369,7 @@ Page({
   },
   setHideOne: function() {
     this.setData({
-      oneIsShow: 0,
+      oneIsShow: 1,
     })
   },
   openGetApp: () => {

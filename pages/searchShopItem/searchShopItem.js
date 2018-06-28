@@ -7,6 +7,7 @@ Page({
   data: {
     search: "",
     isShow: false,
+    isShowData: true,
     server: getApp().globalData.server,
     sellerLocationData: '',
     oneLogo: "",
@@ -26,7 +27,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log(options);
 
     let that = this;
@@ -34,21 +35,44 @@ Page({
       search: options.search
     })
     wx.getStorage({
-      key: 'log',
-      success: function (res) {
-        console.log(res.data)
-        console.log(that)
-        if (res.data.msg == "登录成功") {
-          that.setData({
-            isLog: true
-          })
-        } else {
-          that.setData({
-            isLog: false
-          })
+        key: 'log',
+        success: function(res) {
+          console.log(res.data)
+          console.log(that)
+          if (res.data.msg == "登录成功") {
+            wx.request({
+              url: getApp().globalData.server + '/api/user/info',
+              method: 'post',
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              data: {
+                token: res.data.data.userinfo.token
+              },
+              success: function(res) {
+                if (res.data.data) {
+                  that.setData({
+                    isLog: true
+                  })
+                } else {
+                  that.setData({
+                    isLog: false
+                  })
+                }
+              },
+              fail: function(res) {
+                that.setData({
+                  isLog: false
+                })
+              }
+            })
+          } else {
+            that.setData({
+              isLog: false
+            })
+          }
         }
-      }
-    }),
+      }),
       // wx.showNavigationBarLoading();
       wx.getSetting({
         success: (res) => {
@@ -56,7 +80,7 @@ Page({
             wx.showModal({
               title: '是否授权当前位置',
               content: '需要获取您的地理位置，请确认授权，否则无法获取您所需数据',
-              success: function (res) {
+              success: function(res) {
                 if (res.cancel) {
                   wx.showToast({
                     title: '授权失败',
@@ -65,7 +89,7 @@ Page({
                   })
                 } else if (res.confirm) {
                   wx.openSetting({
-                    success: function (dataAu) {
+                    success: function(dataAu) {
                       if (dataAu.authSetting["scope.userLocation"] == true) {
                         wx.showToast({
                           title: '授权成功',
@@ -105,12 +129,12 @@ Page({
           longitude: res.longitude,
         })
       },
-      fail: function (res) {
+      fail: function(res) {
         // console.log(res);
       }
     })
   },
-  getSellerData: function (y, x) {
+  getSellerData: function(y, x) {
     let that = this;
     wx.request({
       url: getApp().globalData.server + '/api/seller/search_seller',
@@ -123,11 +147,19 @@ Page({
         x,
         y
       },
-      success: function (res) {
-        console.log(res.data)
-        that.setData({
-          sellerLocationData: res.data.data
-        })
+      success: function(res) {
+        console.log(res.data.data)
+        if (res.data.data.length) {
+          that.setData({
+            sellerLocationData: res.data.data,
+            isShowData: true
+          })
+        } else {
+          that.setData({
+            isShowData: false
+          })
+        }
+
         wx.setStorage({
           key: "lastSearch",
           data: that.data.search
@@ -136,7 +168,7 @@ Page({
       }
     })
   },
-  openMap: function (e) {
+  openMap: function(e) {
     if (this.data.isLog) {
       for (let i = 0; i < this.data.sellerLocationData.length; i++) {
         if (this.data.sellerLocationData[i].id == e.currentTarget.dataset.id) {
@@ -164,49 +196,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     //wx.showNavigationBarLoading() //在标题栏中显示加载
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     //console.log("上拉加载")
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

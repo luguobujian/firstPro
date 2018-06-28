@@ -48,7 +48,7 @@
         </view>
       </view>
     </block>
-    <view class='btm-info'>
+    <view wx:if="{{ mainDataList.length }}" class='btm-info'>
       <view>已经到底了哦～</view>
     </view>
     <!-- </scroll-view>

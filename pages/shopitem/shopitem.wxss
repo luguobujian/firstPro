@@ -48,6 +48,7 @@
 .item-one-sale {
   color: #ff8127;
   font-size: 18rpx;
+  line-height: 44rpx;
   margin-bottom: 42rpx;
 }
 
@@ -55,6 +56,7 @@
   font-size: 16rpx;
   line-height: 16rpx;
   padding: 4rpx;
+  margin-top: 8rpx;
   margin-right: 16rpx;
   border: 1rpx solid #ff8127;
   border-radius: 6rpx;

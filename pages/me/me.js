@@ -15,7 +15,9 @@ Page({
     thisCard01: "",
     thisCard02: "",
     thisCard03: "",
-    thisCard04: ""
+    thisCard04: "",
+    token: "",
+    QRCode: ""
   },
 
   /**
@@ -23,24 +25,46 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
-    console.log(that)
     wx.getStorage({
       key: 'log',
       success: function(res) {
-        console.log(res.data)
-        console.log(that)
         if (res.data.msg == "登录成功") {
-          that.setData({
-            isLog: true,
-            name: res.data.data.userinfo.name,
-            thisCard: res.data.data.userinfo.ucard,
-            avartar: getApp().globalData.server + res.data.data.userinfo.hand_image,
-            thisCard_logo: getApp().globalData.server + res.data.data.userinfo.idcard1_image,
-            thisCard_img: getApp().globalData.server + res.data.data.userinfo.idcard2_image,
-            thisCard01: res.data.data.userinfo.ucard.substring(0, 4),
-            thisCard02: res.data.data.userinfo.ucard.substring(4, 8),
-            thisCard03: res.data.data.userinfo.ucard.substring(8, 12),
-            thisCard04: res.data.data.userinfo.ucard.substring(12, 16),
+          wx.request({
+            url: getApp().globalData.server + '/api/user/info',
+            method: 'post',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+              token: res.data.data.userinfo.token
+            },
+            success: function(res) {
+              if (res.data.data) {
+                that.setData({
+                  isLog: true,
+                  name: res.data.data.name,
+                  thisCard: res.data.data.ucard,
+                  avartar: getApp().globalData.server + res.data.data.avatar,
+                  thisCard_logo: getApp().globalData.server + res.data.data.idcard1_image,
+                  thisCard_img: getApp().globalData.server + res.data.data.idcard2_image,
+                  thisCard01: res.data.data.ucard.substring(0, 4),
+                  thisCard02: res.data.data.ucard.substring(4, 8),
+                  thisCard03: res.data.data.ucard.substring(8, 12),
+                  thisCard04: res.data.data.ucard.substring(12, 16),
+                  token: res.data.data.token,
+                });
+                that.getQRCode();
+              } else {
+                wx.redirectTo({
+                  url: '../logs/logs'
+                })
+              }
+            },
+            fail: function(res) {
+              wx.redirectTo({
+                url: '../logs/logs'
+              })
+            }
           })
         } else {
           that.setData({
@@ -71,6 +95,33 @@ Page({
         isShow: true
       })
     }
+  },
+  getQRCode: function() {
+    let that = this;
+    that.setData({
+      QRCode: getApp().globalData.server + '/api/user/erweima?token=' + that.data.token
+    })
+  },
+  copyTBL: function(e) {
+    console.log(e);
+    var that = this;
+    wx.setClipboardData({
+      data: that.data.thisCard,
+      success: function(res) {
+        // self.setData({copyTip:true}),
+        // wx.showModal({
+        //   title: '提示',
+        //   content: '复制成功',
+        //   success: function(res) {
+        //     // if (res.confirm) {
+        //     //   console.log('确定')
+        //     // } else if (res.cancel) {
+        //     //   console.log('取消')
+        //     // }
+        //   }
+        // })
+      }
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

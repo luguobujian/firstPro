@@ -2,12 +2,12 @@
 <!-- <text>pages/me/me.wxml</text> -->
 <view class='container'>
   <view class='main-view'>
-    <image src='../../images/bg.png'></image>
+    <image class="bg" src='../../images/bg.png'></image>
     <view class='logo-view'>
       <image src='../../images/logo.png'></image>
     </view>
     <view class='qr-code-view' bindtap='showUCard'>
-      <image src='{{ thisCard_logo }}'></image>
+      <image src='{{ QRCode }}'></image>
     </view>
     <view class='arrow-view'>
       <image src='../../images/arrow.png'></image>
@@ -18,24 +18,24 @@
     <view class='avatar-view'>
       <image src='{{ avartar }}'></image>
     </view>
-    <view class='clearfix id-view'>
+    <view class='clearfix id-view' bindlongtap='copyTBL'>
       <view class='fl'>{{ thisCard01 }}</view>
       <view class='fl'>{{ thisCard02 }}</view>
       <view class='fl'>{{ thisCard03 }}</view>
       <view class='fl'>{{ thisCard04 }}</view>
     </view>
-    <view class='clearfix small-tit'>
+    <!-- <view class='clearfix small-tit'>
       <view class='fl'>惠军工程</view>
       <view class='fl ver'></view>
       <view class='fl'>尊崇军人</view>
       <view class='fl'>优待军属</view>
-    </view>
+    </view> -->
   </view>
   <view wx:if="{{ isShow }}" class='qrcord' bindtap='showUCard'>
     <view class='con-view'>
       <view class='qrcord-tit'>二维码</view>
       <view class='qrcord-image-view'>
-        <image src='{{ thisCard_img }}'></image>
+        <image src='{{ QRCode }}'></image>
       </view>
     </view>
   </view>
