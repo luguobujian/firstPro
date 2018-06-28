@@ -81,6 +81,12 @@ Page({
               wx.switchTab({
                 url: '../index/index'
               })
+            } else {
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'none',
+                duration: 2000
+              })
             }
           },
           fail: function(res) {

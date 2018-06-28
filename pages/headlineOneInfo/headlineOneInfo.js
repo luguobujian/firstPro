@@ -29,8 +29,8 @@ Page({
         id: 　options.id
       },
       success: function(res) {
-        console.log(res)
-        console.log(res.data.data.content)
+        // console.log(res)
+        // console.log(res.data.data.content)
         let content = WxParse.wxParse('article', 'html', res.data.data.content, that, 5);
         that.setData({
           mainData: res.data.data,
