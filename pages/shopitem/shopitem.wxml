@@ -15,7 +15,7 @@
       <view class='item-one-call'>联系方式：{{ item.mobile }}</view>
       <view class='item-one-sale'>
         <view class='fl'>惠军卡专享</view>
-        {{ item.sellerqiye.dongtai }}
+        {{ item.dongtai }}
       </view>
       <view wx:if="{{ isLog == false }}" class='item-one-btn' bindtap='openGetApp'>领取惠军卡</view>
     </view>

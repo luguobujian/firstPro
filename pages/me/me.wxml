@@ -1,9 +1,9 @@
 <!--pages/me/me.wxml-->
 <!-- <text>pages/me/me.wxml</text> -->
 <view class='container'>
-  <view class='main-view'>
+  <view wx:if="{{ isShowCard }}" class='main-view'>
     <image class="bg" src='../../images/bg.png'></image>
-    <view class='logo-view'>
+    <view class='c-logo-view'>
       <image src='../../images/logo.png'></image>
     </view>
     <view class='qr-code-view' bindtap='showUCard'>
@@ -39,4 +39,12 @@
       </view>
     </view>
   </view>
+   <view wx:if="{{ !isShowCard }}">
+    <view class='logo-view l'>
+      <image src='../../images/icon/get-app-logo.png'></image>
+    </view>
+    <view class='account'>
+      <view>身份审核通过后才可以查看哦!</view>
+    </view>
+  </view> 
 </view>

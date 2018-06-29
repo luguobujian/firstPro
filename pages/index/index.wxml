@@ -52,7 +52,7 @@
     <view class='tit'>
       <view class='perpendicular'>
       </view>
-      名企拥军服务
+      社会化拥军服务
     </view>
     <view>
       <view wx:for="{{ qiyeS }}" wx:key="{{item.id}}">

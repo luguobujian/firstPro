@@ -207,7 +207,7 @@ Page({
       success: function(res) {
 
         if (res.data.msg == "获取成功") {
-          console.log(res.data.data)
+          // console.log(res.data.data)
           that.setData({
             imgUrls: res.data.data
           })
@@ -331,7 +331,7 @@ Page({
           onejuli: this.data.sellerLocationData[i].juli,
           oneLatitude: this.data.sellerLocationData[i].y,
           oneLongitude: this.data.sellerLocationData[i].x,
-          oneDongTai: this.data.sellerLocationData[i].sellerqiye.dongtai
+          oneDongTai: this.data.sellerLocationData[i].dongtai
         })
       }
     }

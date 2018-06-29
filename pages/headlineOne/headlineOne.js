@@ -6,8 +6,10 @@ Page({
    */
   data: {
     server: getApp().globalData.server,
+    id: "",
     mainDataList: [],
-    isShowData: true
+    isShowData: true,
+    limit: 8
   },
 
   /**
@@ -15,6 +17,9 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
+    that.setData({
+      id: options.id
+    })
     wx.request({
       url: getApp().globalData.server + '/api/article/arclist',
       method: 'post',
@@ -24,7 +29,7 @@ Page({
       data: {
         category_id: options.id,
         page: "1",
-        limit: "999999",
+        limit: that.data.limit,
         flag: ""
       },
       success: function(res) {
@@ -88,7 +93,35 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    let that = this;
+    let limit = that.data.limit + 8;
+    wx.request({
+      url: getApp().globalData.server + '/api/article/arclist',
+      method: 'post',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        category_id: that.data.id,
+        page: "1",
+        limit,
+        flag: ""
+      },
+      success: function(res) {
+        console.log(res);
+        if (res.data.data) {
+          that.setData({
+            mainDataList: res.data.data,
+            isShowData: true
+          })
+        } else {
+          that.setData({
+            isShowData: false
+          })
+        }
 
+      }
+    })
   },
 
   /**

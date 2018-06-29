@@ -91,7 +91,7 @@ Page({
           loadingHidden: true
         })
         console.log(that.data.loadingHidden)
-        if (res.data.data) {
+        if (res.data.data.length) {
           that.setData({
             sellerLocationData: res.data.data,
             isShowData: true

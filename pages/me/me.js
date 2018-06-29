@@ -7,6 +7,7 @@ Page({
   data: {
     isLog: false,
     isShow: false,
+    isShowCard: true,
     name: "",
     thisCard: "",
     avartar: "",
@@ -53,6 +54,15 @@ Page({
                   thisCard04: res.data.data.ucard.substring(12, 16),
                   token: res.data.data.token,
                 });
+                if (res.data.data.shenhestatus == 4) {
+                  that.setData({
+                    isShowCard: true
+                  })
+                } else {
+                  that.setData({
+                    isShowCard: false
+                  })
+                }
                 that.getQRCode();
               } else {
                 wx.redirectTo({
@@ -134,7 +144,65 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    let that = this;
+    wx.getStorage({
+      key: 'log',
+      success: function(res) {
+        if (res.data.msg == "登录成功") {
+          wx.request({
+            url: getApp().globalData.server + '/api/user/info',
+            method: 'post',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+              token: res.data.data.userinfo.token
+            },
+            success: function(res) {
+              if (res.data.data) {
+                console.log(getApp().globalData.server + res.data.data.avatar);
+                console.log(that.data.avartar);
+                if (getApp().globalData.server + res.data.data.avatar != that.data.avartar) {
+                  that.setData({
+                    // isLog: true,
+                    avartar: getApp().globalData.server + res.data.data.avatar,
+                  });
+                }
+                that.setData({
+                  isLog: true,
+                  // avartar: getApp().globalData.server + res.data.data.avatar,
+                });
+                that.getQRCode();
+              } else {
+                wx.redirectTo({
+                  url: '../logs/logs'
+                })
+              }
+            },
+            fail: function(res) {
+              wx.redirectTo({
+                url: '../logs/logs'
+              })
+            }
+          })
+        } else {
+          that.setData({
+            isLog: false
+          })
+          wx.redirectTo({
+            url: '../logs/logs'
+          })
+        }
+      },
+      fail: function(res) {
+        that.setData({
+          isLog: false
+        })
+        wx.redirectTo({
+          url: '../logs/logs'
+        })
+      }
+    })
   },
 
   /**

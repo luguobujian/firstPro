@@ -23,7 +23,7 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "拥军爱心企业",
+        "text": "社会化拥军服务",
         "iconPath": "./images/icon/tabbar01.png",
         "selectedIconPath": "./images/icon/tabbar01-act.png"
       },

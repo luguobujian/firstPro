@@ -37,8 +37,8 @@
 }
 
 .logo-view image {
-  width: 402rpx;
-  height: 274rpx;
+  width: 402rpx !important;
+  height: 274rpx !important;
 }
 
 .account {

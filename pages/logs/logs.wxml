@@ -1,6 +1,6 @@
 <!--logs.wxml-->
 <view class="container">
-  <view class='logo-view'>
+  <view class='l-logo-view'>
     <image src='../../images/icon/main-logo.png'></image>
   </view>
   <view class='account'>
