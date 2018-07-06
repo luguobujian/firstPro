@@ -202,6 +202,7 @@
   margin-top: 30rpx;
   margin-bottom: 38rpx;
   background-color: #f8f8f8;
+  box-shadow: 2px 0 5px #dedede;
 }
 
 .item-one {
@@ -289,4 +290,18 @@
   width: 44rpx;
   height: 44rpx;
   margin-top: 20rpx;
+}
+
+.bottom-view {
+  font-size: 36rpx;
+  text-align: center;
+}
+
+.bottom-view view {
+  margin: 40rpx 0 36rpx; 
+}
+
+.bottom-view > image {
+  width: 262rpx;
+  height: 262rpx;
 }

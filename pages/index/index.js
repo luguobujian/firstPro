@@ -36,7 +36,9 @@ Page({
     onejuli: "",
     oneLatitude: "",
     oneLongitude: "",
-    oneDongTai: ""
+    oneDongTai: "",
+
+    scene: [getApp().globalData.server + '/xcx-1.png']
   },
 
 
@@ -377,4 +379,13 @@ Page({
       url: '../getApp/getApp'
     })
   },
+  previewImage: function(e) {
+    wx.previewImage({
+      urls: this.data.scene,
+      fail: function (res) {
+        console.log(res)
+      }
+      
+    })
+  }
 })

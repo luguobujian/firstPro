@@ -12,7 +12,7 @@
     <image wx:if="{{ isShow == 1 }}" class="sOrH" src='../../images/icon/hide.png' bindtap='seePad'></image>
   </view>
   <view class='btn-view' bindtap='logIn'>
-    <view>登陆</view>
+    <view>登录</view>
   </view>
   <view class='clearfix bottom-view'>
     <view class='fl' data-mark="l1" bindtap='openGetApp'>忘记密码</view> 

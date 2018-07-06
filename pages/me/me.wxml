@@ -2,7 +2,7 @@
 <!-- <text>pages/me/me.wxml</text> -->
 <view class='container'>
   <view wx:if="{{ isShowCard }}" class='main-view'>
-    <image class="bg" src='../../images/bg.png'></image>
+    <image class="bg" src='../../images/bg01.png'></image>
     <view class='c-logo-view'>
       <image src='../../images/logo.png'></image>
     </view>
